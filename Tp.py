@@ -14,33 +14,15 @@ def check_num1(a: str):
         if cnt > 1:
             res = False
 
+    '''
+    определение кол-ва знаков после запятой
+    '''
     b = a.find('.')
     if b == -1:
         round1 = 0
     else:
         round1 = len(a) - (a.find('.') + 1)
     return res, round1
-
-
-def ruond_res1(num1, num2):
-    '''
-    определение кол-ва знаков 
-    после запятой 
-    '''
-    round_res = 0
-    b = num1.find('.')
-    round1 = 0
-    if b != -1:
-        round1 = len(num1) - (num1.find('.') + 1)
-    c = num2.find('.')
-    round2 = 0
-    if c != -1:
-        round2 = len(num2) - (num2.find('.') + 1)
-    if round1 >= round2:
-        round_res = round1
-    else:
-        round_res = round2
-    return round_res
 
 
 def check_num2(a: str):
@@ -58,13 +40,36 @@ def check_num2(a: str):
             cnt += 1
         if cnt > 1:
             res = False
-
+    '''
+    определение кол-ва знаков после запятой
+    '''
     b = a.find('.')
     if b == -1:
         round2 = 0
     else:
         round2 = len(a) - (a.find('.') + 1)
     return res, round2
+
+
+def round_res1(num1, num2):
+    '''
+    определение кол-ва знаков 
+    после запятой для результата
+    '''
+    round_res = 0
+    b = num1.find('.')
+    round1 = 0
+    if b != -1:
+        round1 = len(num1) - (num1.find('.') + 1)
+    c = num2.find('.')
+    round2 = 0
+    if c != -1:
+        round2 = len(num2) - (num2.find('.') + 1)
+    if round1 >= round2:
+        round_res = round1
+    else:
+        round_res = round2
+    return round_res
 
 
 def check_action(y):
@@ -112,15 +117,15 @@ def calc(a, b, oper):
     '''
     res = ''
     if oper == '+':
-        res = str(sum(a, b))
-    if oper == '-':
-        res = str(sub(a, b))
-    if oper == '*':
-        res = str(mult(a, b))
-    if oper == '/' and b == 0:
+        res = float(sum(a, b))
+    elif oper == '-':
+        res = float(sub(a, b))
+    elif oper == '*':
+        res = float(mult(a, b))
+    elif oper == '/' and b == 0:
         res = 'делить на ноль нельзя'
     else:
-        res = str(div(a, b))
+        res = float(div(a, b))
     return res
 
 
@@ -148,7 +153,11 @@ while not check_num2(second_num):
 
 x = float(first_num)
 y = float(second_num)
-round_result = ruond_res1(first_num, second_num)
+round_result = int(round_res1(first_num, second_num))
+print(x)
+print(operation)
+print(y)
 
+print(calc(x, y, operation))
 print(
     f'результат {x} {operation} {y} => {round(calc(x, y, operation), round_result)}')
